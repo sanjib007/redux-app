@@ -4,30 +4,55 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
-import { createStore } from 'redux';
+import {combineReducers, createStore } from 'redux';
 
-function reducer(state, action) {
-    console.log(action);
-    if(action.type === "changeState"){
-        return action.payload.newState;
-    }
-    return 'State';
+
+
+function productReducer(state = [], action) {
+    return state;
 }
 
-const store = createStore(reducer);
+function userReducer(state = '', action) {
+    return state;
+}
+
+const allReducers = combineReducers({
+    product : productReducer,
+    user : userReducer
+});
+
+
+const store = createStore(allReducers, {
+    product : [{name : 'iPhone'}, {name: 'Mi'}, {name: 'samsung'}],
+    user: 'sanjib'
+}, window.devToolsExtension && window.devToolsExtension());
 
 console.log(store.getState());
 
-const action = {
-    type: 'changeState',
-    payload : {
-        newState: 'New State'
-    }
-}
 
-store.dispatch(action);
 
-console.log('new',store.getState());
+
+
+
+
+
+
+
+
+
+
+
+
+// const action = {
+//     type: 'changeState',
+//     payload : {
+//         newState: 'New State'
+//     }
+// }
+//
+// store.dispatch(action);
+//
+// console.log('new',store.getState());
 
 ReactDOM.render(<App />, document.getElementById('root'));
 
